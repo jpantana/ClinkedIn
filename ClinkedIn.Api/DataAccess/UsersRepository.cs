@@ -2,6 +2,7 @@
 ﻿using System;
 =======
 ﻿using ClinkedIn.Api.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
 >>>>>>> bdcc8b46e0f8b6f612e1920221bb4a2b5b5ad5a8
 using System.Collections.Generic;
@@ -57,6 +58,13 @@ namespace ClinkedIn.Api.DataAccess
                 },
             },
         };
+
+        internal ActionResult<User> GetById(Guid id)
+        {
+            var user = _users.FirstOrDefault(c => c.Id == id);
+            return user;
+        }
+
         public List<User> GetAll()
         {
             return _users;

@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 namespace ClinkedIn.Api.DataAccess
 {
     public class UserRepository
-    {
+    { 
     }
 }

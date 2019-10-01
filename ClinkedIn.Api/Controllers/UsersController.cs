@@ -18,6 +18,13 @@ namespace ClinkedIn.Api.Controllers
             var repo = new UsersRepository();
             return repo.GetAll();
         }
+
+        [HttpGet("{id}")]
+        public ActionResult<User> GetById(Guid id)
+        {
+            var repo = new UsersRepository();
+            return repo.GetById(id);
+        }
     }
 }
 

@@ -19,6 +19,16 @@ namespace ClinkedIn.Api.Controllers
             return repo.GetAll();
         }
 
+        [HttpGet("{id}/Friends")]
+        public ActionResult<IEnumerable<User>> GetFriends(Guid id)
+        {
+            var repo = new UsersRepository();
+            var friendsList = repo.GetFriends(id);
+
+            return Ok(friendsList);
+        }
+
+
         [HttpGet("{id}")]
         public ActionResult<User> GetById(Guid id)
         {

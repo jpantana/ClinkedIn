@@ -1,14 +1,14 @@
+using System;
 ﻿using ClinkedIn.Api.Models;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ClinkedIn.Api.DataAccess
 {
     public class UsersRepository
-    {
+    { 
         static List<User> _users = new List<User>
         {
              new User
@@ -22,6 +22,7 @@ namespace ClinkedIn.Api.DataAccess
                 InterestList = new List<string>{
                     "Kitchenaid Mixers", "Waterballoon Fights", "Bonnie Rait Tribute bands", "Pig Latin",
                 },
+                MyFriends = new List<User>()
 
             },
             new User
@@ -35,6 +36,7 @@ namespace ClinkedIn.Api.DataAccess
                 InterestList = new List<string>{
                     "Batman Ties", "Yorkshire Terriors", "Baking", "Vintage Lunchboxes",
                 },
+                MyFriends = new List<User>()
 
             },
             new User
@@ -48,6 +50,7 @@ namespace ClinkedIn.Api.DataAccess
                 InterestList = new List<string>{
                     "poker", "Zombie Movies", "Nascar", "Ancient Aliens",
                 },
+                MyFriends = new List<User>()
             },
         };
 
@@ -55,6 +58,13 @@ namespace ClinkedIn.Api.DataAccess
         {
             var user = _users.FirstOrDefault(c => c.Id == id);
             return user;
+        }
+
+        public ActionResult<List<User>> GetFriends(Guid id)
+        {
+            var user = _users.FirstOrDefault(thisUser => thisUser.Id == id);
+            var friendsList = user.MyFriends;
+            return friendsList;
         }
 
         public List<User> GetAll()

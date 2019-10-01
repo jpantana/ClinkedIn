@@ -15,7 +15,7 @@ namespace ClinkedIn.Api.Models
         public int SentenceLength { get; set; }
         public Specialty Specialty { get; set; }
         public List<string> InterestList { get; set; }
-        public FriendsRepository MyFriends { get; set; }
+        public List<User> MyFriends { get; set; }
         public EnemiesRepository MyEnemies { get; set; }
     }
     public enum Specialty

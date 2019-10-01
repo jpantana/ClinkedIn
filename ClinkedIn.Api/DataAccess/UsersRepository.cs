@@ -2,7 +2,10 @@ using System;
 ﻿using ClinkedIn.Api.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
+<<<<<<< HEAD
 using System.Linq;
+=======
+>>>>>>> master
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,7 +13,11 @@ using System.Threading.Tasks;
 namespace ClinkedIn.Api.DataAccess
 {
     public class UsersRepository
+<<<<<<< HEAD
     {
+=======
+    { 
+>>>>>>> master
         static List<User> _users = new List<User>
         {
              new User

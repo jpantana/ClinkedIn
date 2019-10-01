@@ -8,13 +8,25 @@ namespace ClinkedIn.Api.Models
 {
     public class User
     {
+        public Guid Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime SentenceStarted { get; set; }
-        public DateTime SentenceLength { get; set; }
-        public ServicesRepository ServicesOffered { get; set; }
-        public InterestsRepository InterestList { get; set; }
+        public int SentenceLength { get; set; }
+        public Specialty Specialty { get; set; }
+        public List<string> InterestList { get; set; }
         public FriendsRepository MyFriends { get; set; }
         public EnemiesRepository MyEnemies { get; set; }
+    }
+    public enum Specialty
+    {
+        Haircutting,
+        Tattoo_Artist,
+        Hitman,
+        Smuggler,
+        Protection,
+        Rat,
+        Bootlegger,
+        Makup_Artist,
     }
 }

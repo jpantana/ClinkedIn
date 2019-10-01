@@ -1,10 +1,7 @@
-<<<<<<< HEAD
-﻿using System;
-=======
+using System;
 ﻿using ClinkedIn.Api.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
->>>>>>> bdcc8b46e0f8b6f612e1920221bb4a2b5b5ad5a8
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,11 +9,7 @@ using System.Threading.Tasks;
 namespace ClinkedIn.Api.DataAccess
 {
     public class UsersRepository
-<<<<<<< HEAD
     { 
-
-=======
-    {
         static List<User> _users = new List<User>
         {
              new User
@@ -69,6 +62,5 @@ namespace ClinkedIn.Api.DataAccess
         {
             return _users;
         }
->>>>>>> bdcc8b46e0f8b6f612e1920221bb4a2b5b5ad5a8
     }
 }

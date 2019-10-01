@@ -18,6 +18,16 @@ namespace ClinkedIn.Api.Controllers
             var repo = new UsersRepository();
             return repo.GetAll();
         }
+
+        [HttpGet("{id}/Friends")]
+        public ActionResult<IEnumerable<User>> GetFriends(Guid id)
+        {
+            var repo = new UsersRepository();
+            var currentUser = repo.GetById(id);
+
+
+            return Ok(currentUser.MyFriends);
+        }
     }
 }
 

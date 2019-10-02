@@ -54,6 +54,13 @@ namespace ClinkedIn.Api.DataAccess
             },
         };
 
+
+        public ActionResult<List<User>> CreateNewUser(User user)
+        {
+            _users.Add(user);
+            return _users; 
+        }
+
         internal ActionResult<User> GetById(Guid id)
         {
             var user = _users.FirstOrDefault(c => c.Id == id);

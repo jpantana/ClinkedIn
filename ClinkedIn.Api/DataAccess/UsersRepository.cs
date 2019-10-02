@@ -8,10 +8,12 @@ using System.Threading.Tasks;
 namespace ClinkedIn.Api.DataAccess
 {
     public class UsersRepository
-    { 
-        static List<User> _users = new List<User>
+    {
+        static List<User> _users = new List<User>();
+
+        public UsersRepository()
         {
-             new User
+            var JoshPantana = new User
             {
                 Id = Guid.NewGuid(),
                 FirstName = "Josh",
@@ -19,27 +21,14 @@ namespace ClinkedIn.Api.DataAccess
                 SentenceStarted = DateTime.Now,
                 SentenceLength = 1,
                 Specialty = Specialty.Smuggler,
-                InterestList = new List<string>{
+                InterestList = new List<string> {
                     "Kitchenaid Mixers", "Waterballoon Fights", "Bonnie Rait Tribute bands", "Pig Latin",
                 },
-                MyFriends = new List<User>()
+                MyFriends = new List<User>(),
+                MyEnemies = new List<User>()
+            };
 
-            },
-            new User
-            {
-                Id = Guid.NewGuid(),
-                FirstName = "Heath",
-                LastName = "Moore",
-                SentenceStarted = DateTime.Now,
-                SentenceLength = 3,
-                Specialty = Specialty.Haircutting,
-                InterestList = new List<string>{
-                    "Batman Ties", "Yorkshire Terriors", "Baking", "Vintage Lunchboxes",
-                },
-                MyFriends = new List<User>()
-
-            },
-            new User
+            var JeressiaWilliamson = new User
             {
                 Id = Guid.NewGuid(),
                 FirstName = "Jeressia",
@@ -47,12 +36,142 @@ namespace ClinkedIn.Api.DataAccess
                 SentenceStarted = DateTime.Now,
                 SentenceLength = 2,
                 Specialty = Specialty.Hitman,
-                InterestList = new List<string>{
+                InterestList = new List<string> {
                     "poker", "Zombie Movies", "Nascar", "Ancient Aliens",
                 },
-                MyFriends = new List<User>()
-            },
-        };
+                MyFriends = new List<User>(),
+                MyEnemies = new List<User>
+                {
+                    JoshPantana
+                }
+            };
+
+            var AmyWinehouse = new User
+            {
+                Id = Guid.NewGuid(),
+                FirstName = "Amy",
+                LastName = "Winehouse",
+                SentenceStarted = DateTime.Now,
+                SentenceLength = 4,
+                Specialty = Specialty.Makup_Artist,
+                InterestList = new List<string> {
+                    "singing", "rehab", "smoking cigarettes",
+                },
+                MyFriends = new List<User>
+                {
+                    JoshPantana
+                },
+                MyEnemies = new List<User>
+                {
+                    JoshPantana
+                }
+            };
+
+
+            var HeathMoore = new User
+            {
+                Id = Guid.NewGuid(),
+                FirstName = "Heath",
+                LastName = "Moore",
+                SentenceStarted = DateTime.Now,
+                SentenceLength = 3,
+                Specialty = Specialty.Haircutting,
+                InterestList = new List<string> {
+                    "Batman Ties", "Yorkshire Terriors", "Baking", "Vintage Lunchboxes",
+                },
+                MyFriends = new List<User>
+                {
+                    JoshPantana
+                },
+                MyEnemies = new List<User>
+                {
+                    JoshPantana
+                }
+            };
+
+
+            var TedBundy = new User
+            {
+                Id = Guid.NewGuid(),
+                FirstName = "Britney",
+                LastName = "Spears",
+                SentenceStarted = DateTime.Now,
+                SentenceLength = 1,
+                Specialty = Specialty.Haircutting,
+                InterestList = new List<string> {
+                    "dancing"
+                },
+                MyFriends = new List<User>
+                {
+                    JoshPantana
+                },
+                MyEnemies = new List<User>
+                {
+                    JoshPantana
+                }
+            };
+
+            var JeffreyDahmer = new User
+            {
+                Id = Guid.NewGuid(),
+                FirstName = "Britney",
+                LastName = "Spears",
+                SentenceStarted = DateTime.Now,
+                SentenceLength = 1,
+                Specialty = Specialty.Haircutting,
+                InterestList = new List<string> {
+                    "dancing"
+                },
+                MyFriends = new List<User>
+                {
+                JoshPantana
+                },
+                MyEnemies = new List<User>
+                {
+                    JoshPantana
+                }
+            };
+
+            var BritneySpears = new User
+            {
+                Id = Guid.NewGuid(),
+                FirstName = "Britney",
+                LastName = "Spears",
+                SentenceStarted = DateTime.Now,
+                SentenceLength = 1,
+                Specialty = Specialty.Haircutting,
+                InterestList = new List<string> {
+                    "dancing"
+                },
+                MyFriends = new List<User>
+                {
+                    JoshPantana
+                },
+                MyEnemies = new List<User>
+                {
+                    JoshPantana
+                }
+            };
+
+
+            _users.Add(JoshPantana);
+            _users.Add(HeathMoore);
+            _users.Add(JeressiaWilliamson);
+            _users.Add(AmyWinehouse);
+            _users.Add(BritneySpears);
+            _users.Add(JeffreyDahmer);
+            _users.Add(TedBundy);
+
+        }
+
+
+
+
+
+        public List<User> GetAll()
+        {
+            return _users;
+        }
 
 
         public ActionResult<List<User>> CreateNewUser(User user)
@@ -63,20 +182,23 @@ namespace ClinkedIn.Api.DataAccess
 
         internal ActionResult<User> GetById(Guid id)
         {
-            var user = _users.FirstOrDefault(c => c.Id == id);
+            var user = _users.FirstOrDefault(clinker => clinker.Id == id);
             return user;
         }
 
-        public ActionResult<List<User>> GetFriends(Guid id)
+        public List<User> GetFriends(Guid id)
         {
             var user = _users.FirstOrDefault(thisUser => thisUser.Id == id);
             var friendsList = user.MyFriends;
             return friendsList;
         }
 
-        public List<User> GetAll()
+        internal List<User> GetEnemies(Guid id)
         {
-            return _users;
+            var user = _users.FirstOrDefault(clinker => clinker.Id == id);
+            var enemiesList = user.MyEnemies;
+            return enemiesList;
         }
+
     }
 }

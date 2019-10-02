@@ -18,6 +18,7 @@ namespace ClinkedIn.Api.Models
         public List<User> MyFriends { get; set; }
         public List<User> MyEnemies { get; set; }
     }
+
     public enum Specialty
     {
         Haircutting,

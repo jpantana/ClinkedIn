@@ -186,14 +186,14 @@ namespace ClinkedIn.Api.DataAccess
             return user;
         }
 
-        public ActionResult<List<User>> GetFriends(Guid id)
+        public List<User> GetFriends(Guid id)
         {
             var user = _users.FirstOrDefault(thisUser => thisUser.Id == id);
             var friendsList = user.MyFriends;
             return friendsList;
         }
 
-        internal object GetEnemies(Guid id)
+        internal List<User> GetEnemies(Guid id)
         {
             var user = _users.FirstOrDefault(clinker => clinker.Id == id);
             var enemiesList = user.MyEnemies;

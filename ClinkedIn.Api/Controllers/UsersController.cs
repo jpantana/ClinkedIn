@@ -1,4 +1,5 @@
-﻿using ClinkedIn.Api.DataAccess;
+﻿using ClinkedIn.Api.Commands;
+using ClinkedIn.Api.DataAccess;
 using ClinkedIn.Api.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -42,6 +43,27 @@ namespace ClinkedIn.Api.Controllers
         {
             var repo = new UsersRepository();
             return repo.GetById(id);
+        }
+
+        [HttpPost]
+        public ActionResult<List<User>> CreateUser(UserAddCommand user)
+        {
+            var newUser = new User
+            {
+                Id = Guid.NewGuid(),
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                SentenceLength = user.SentenceLength,
+                SentenceStarted = DateTime.Now,
+                Specialty = user.Specialty,
+                InterestList = user.InterestList,
+                MyFriends = new List<User>(),
+                MyEnemies = new List<User>(),
+            };
+
+            var repo = new UsersRepository();
+            var myNewUser = repo.CreateNewUser(newUser);
+            return Ok(myNewUser);
         }
     }
 }

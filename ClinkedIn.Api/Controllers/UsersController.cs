@@ -28,6 +28,14 @@ namespace ClinkedIn.Api.Controllers
             return Ok(friendsList);
         }
 
+        [HttpGet("{id}/Enemies")]
+        public ActionResult<IEnumerable<User>> GetEnemies(Guid id)
+        {
+            var repo = new UsersRepository();
+            var enemiesList = repo.GetEnemies(id);
+
+            return Ok(enemiesList);
+        }
 
         [HttpGet("{id}")]
         public ActionResult<User> GetById(Guid id)

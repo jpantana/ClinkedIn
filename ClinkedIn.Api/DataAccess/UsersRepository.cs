@@ -93,8 +93,8 @@ namespace ClinkedIn.Api.DataAccess
             var TedBundy = new User
             {
                 Id = Guid.NewGuid(),
-                FirstName = "Britney",
-                LastName = "Spears",
+                FirstName = "Ted",
+                LastName = "Bundy",
                 SentenceStarted = DateTime.Now,
                 SentenceLength = 1,
                 Specialty = Specialty.Haircutting,
@@ -114,8 +114,8 @@ namespace ClinkedIn.Api.DataAccess
             var JeffreyDahmer = new User
             {
                 Id = Guid.NewGuid(),
-                FirstName = "Britney",
-                LastName = "Spears",
+                FirstName = "Jeffrey",
+                LastName = "Dahmer",
                 SentenceStarted = DateTime.Now,
                 SentenceLength = 1,
                 Specialty = Specialty.Haircutting,
@@ -186,6 +186,11 @@ namespace ClinkedIn.Api.DataAccess
             return user;
         }
 
+        internal User GetByIdToAddFriend(Guid id)
+        {
+            var user = _users.FirstOrDefault(clinker => clinker.Id == id);
+            return user;
+        }
         public List<User> GetFriends(Guid id)
         {
             var user = _users.FirstOrDefault(thisUser => thisUser.Id == id);
@@ -199,6 +204,5 @@ namespace ClinkedIn.Api.DataAccess
             var enemiesList = user.MyEnemies;
             return enemiesList;
         }
-
     }
 }

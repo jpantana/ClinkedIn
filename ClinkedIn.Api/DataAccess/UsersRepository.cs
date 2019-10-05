@@ -20,7 +20,7 @@ namespace ClinkedIn.Api.DataAccess
                 FirstName = "Josh",
                 LastName = "Pantana",
                 SentenceStarted = DateTime.Now,
-                SentenceLength = 1,
+                SentenceEnds = new DateTime(2020, 4, 27, 8, 00, 00),
                 Specialty = Specialty.Smuggler,
                 InterestList = new List<string> {
                     "Kitchenaid Mixers", "Waterballoon Fights", "Bonnie Rait Tribute bands", "Pig Latin",
@@ -35,7 +35,7 @@ namespace ClinkedIn.Api.DataAccess
                 FirstName = "Jeressia",
                 LastName = "Williamson",
                 SentenceStarted = DateTime.Now,
-                SentenceLength = 2,
+                SentenceEnds = new DateTime(2019, 11, 1, 8, 00, 00),
                 Specialty = Specialty.Hitman,
                 InterestList = new List<string> {
                     "poker", "Zombie Movies", "Nascar", "Ancient Aliens",
@@ -53,7 +53,7 @@ namespace ClinkedIn.Api.DataAccess
                 FirstName = "Amy",
                 LastName = "Winehouse",
                 SentenceStarted = DateTime.Now,
-                SentenceLength = 4,
+                SentenceEnds = new DateTime(2028, 1, 18, 8, 00, 00),
                 Specialty = Specialty.Makup_Artist,
                 InterestList = new List<string> {
                     "singing", "rehab", "smoking cigarettes",
@@ -75,7 +75,7 @@ namespace ClinkedIn.Api.DataAccess
                 FirstName = "Heath",
                 LastName = "Moore",
                 SentenceStarted = DateTime.Now,
-                SentenceLength = 3,
+                SentenceEnds = new DateTime(2025, 7, 4, 8, 00, 00),
                 Specialty = Specialty.Haircutting,
                 InterestList = new List<string> {
                     "Batman Ties", "Yorkshire Terriors", "Baking", "Vintage Lunchboxes",
@@ -97,7 +97,7 @@ namespace ClinkedIn.Api.DataAccess
                 FirstName = "Ted",
                 LastName = "Bundy",
                 SentenceStarted = DateTime.Now,
-                SentenceLength = 1,
+                SentenceEnds = new DateTime(2088, 9, 30, 8, 00, 00),
                 Specialty = Specialty.Haircutting,
                 InterestList = new List<string> {
                     "dancing"
@@ -118,7 +118,7 @@ namespace ClinkedIn.Api.DataAccess
                 FirstName = "Jeffrey",
                 LastName = "Dahmer",
                 SentenceStarted = DateTime.Now,
-                SentenceLength = 1,
+                SentenceEnds = new DateTime(2023, 3, 20, 8, 00, 00),
                 Specialty = Specialty.Haircutting,
                 InterestList = new List<string> {
                     "dancing"
@@ -139,7 +139,7 @@ namespace ClinkedIn.Api.DataAccess
                 FirstName = "Britney",
                 LastName = "Spears",
                 SentenceStarted = DateTime.Now,
-                SentenceLength = 1,
+                SentenceEnds = new DateTime(2020, 8, 25, 8, 00, 00),
                 Specialty = Specialty.Haircutting,
                 InterestList = new List<string> {
                     "dancing"
@@ -163,6 +163,7 @@ namespace ClinkedIn.Api.DataAccess
             _users.Add(BritneySpears);
             _users.Add(JeffreyDahmer);
             _users.Add(TedBundy);
+
 
         }
 
@@ -206,9 +207,9 @@ namespace ClinkedIn.Api.DataAccess
         {
             Regex pattern = new Regex($@"\b{interest.ToLower()}\b");
             var usersWithInterest = new List<User>();
-            foreach(User user in _users)
+            foreach (User user in _users)
             {
-                foreach(string userInterest in user.InterestList)
+                foreach (string userInterest in user.InterestList)
                 {
                     if (pattern.IsMatch(userInterest.ToLower()))
                     {
@@ -221,5 +222,17 @@ namespace ClinkedIn.Api.DataAccess
             return usersNames;
         }
 
+        internal ActionResult<string> DaysLeft(Guid id)
+        {
+            var user = _users.FirstOrDefault(clinker => clinker.Id == id);
+            var sentenceStarted = user.SentenceStarted;
+            var sentenceEnds = user.SentenceEnds;
+
+            //int DaysLeft = sentenceEnds.Day - sentenceStarted.Day;
+
+            System.TimeSpan DaysLeft = sentenceEnds.Subtract(sentenceStarted);
+            var SentenceRemaining = $"{user.FirstName} {user.LastName} has {DaysLeft.Days} days left in prison.";
+            return SentenceRemaining;
+        }
     }
 }

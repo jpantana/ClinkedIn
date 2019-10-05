@@ -72,6 +72,15 @@ namespace ClinkedIn.Api.Controllers
             var repo = new UsersRepository();
             return repo.DaysLeft(id);
         }
+
+        [HttpGet("interests/{interest}")]
+        public ActionResult<IEnumerable<string>> GetByInterests(string interest)
+        {
+            var repo = new UsersRepository();
+            var usersWithInterest = repo.GetUsersByInterests(interest);
+            return Ok(usersWithInterest);
+
+        }
     }
 }
 

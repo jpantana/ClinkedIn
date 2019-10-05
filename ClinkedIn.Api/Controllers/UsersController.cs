@@ -65,6 +65,14 @@ namespace ClinkedIn.Api.Controllers
             var myNewUser = repo.CreateNewUser(newUser);
             return Ok(myNewUser);
         }
+
+        [HttpGet("interests/{interest}")]
+        public ActionResult<List<User>> GetByInterests(string interest)
+        {
+            var repo = new UsersRepository();
+            var usersWithInterest = repo.GetUsersByInterests(interest);
+            return Ok(usersWithInterest);
+        }
     }
 }
 

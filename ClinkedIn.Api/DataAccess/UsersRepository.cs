@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace ClinkedIn.Api.DataAccess
 {
@@ -93,8 +94,8 @@ namespace ClinkedIn.Api.DataAccess
             var TedBundy = new User
             {
                 Id = Guid.NewGuid(),
-                FirstName = "Britney",
-                LastName = "Spears",
+                FirstName = "Ted",
+                LastName = "Bundy",
                 SentenceStarted = DateTime.Now,
                 SentenceLength = 1,
                 Specialty = Specialty.Haircutting,
@@ -114,8 +115,8 @@ namespace ClinkedIn.Api.DataAccess
             var JeffreyDahmer = new User
             {
                 Id = Guid.NewGuid(),
-                FirstName = "Britney",
-                LastName = "Spears",
+                FirstName = "Jeffrey",
+                LastName = "Dahmer",
                 SentenceStarted = DateTime.Now,
                 SentenceLength = 1,
                 Specialty = Specialty.Haircutting,
@@ -154,6 +155,7 @@ namespace ClinkedIn.Api.DataAccess
             };
 
 
+
             _users.Add(JoshPantana);
             _users.Add(HeathMoore);
             _users.Add(JeressiaWilliamson);
@@ -177,7 +179,7 @@ namespace ClinkedIn.Api.DataAccess
         public ActionResult<List<User>> CreateNewUser(User user)
         {
             _users.Add(user);
-            return _users; 
+            return _users;
         }
 
         internal ActionResult<User> GetById(Guid id)
@@ -198,6 +200,24 @@ namespace ClinkedIn.Api.DataAccess
             var user = _users.FirstOrDefault(clinker => clinker.Id == id);
             var enemiesList = user.MyEnemies;
             return enemiesList;
+        }
+
+        public ActionResult<List<User>> GetUsersByInterests(string interest)
+        {
+            Regex pattern = new Regex($@"\b{interest}\b");
+            var usersWithInterest = new List<User>();
+            foreach(User user in _users)
+            {
+                foreach(string userInterest in user.InterestList)
+                {
+                    if (pattern.IsMatch(userInterest))
+                    {
+                        usersWithInterest.Add(user);
+                        break;
+                    }
+                }
+            }
+            return usersWithInterest;
         }
 
     }

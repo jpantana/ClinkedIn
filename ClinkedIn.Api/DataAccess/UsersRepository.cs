@@ -202,22 +202,23 @@ namespace ClinkedIn.Api.DataAccess
             return enemiesList;
         }
 
-        public ActionResult<List<User>> GetUsersByInterests(string interest)
+        public IEnumerable<string> GetUsersByInterests(string interest)
         {
-            Regex pattern = new Regex($@"\b{interest}\b");
+            Regex pattern = new Regex($@"\b{interest.ToLower()}\b");
             var usersWithInterest = new List<User>();
             foreach(User user in _users)
             {
                 foreach(string userInterest in user.InterestList)
                 {
-                    if (pattern.IsMatch(userInterest))
+                    if (pattern.IsMatch(userInterest.ToLower()))
                     {
                         usersWithInterest.Add(user);
                         break;
                     }
                 }
             }
-            return usersWithInterest;
+            var usersNames = usersWithInterest.Select(x => $"{x.FirstName} {x.LastName}");
+            return usersNames;
         }
 
     }

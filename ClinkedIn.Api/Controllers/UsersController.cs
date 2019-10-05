@@ -67,7 +67,7 @@ namespace ClinkedIn.Api.Controllers
         }
 
         [HttpGet("interests/{interest}")]
-        public ActionResult<List<User>> GetByInterests(string interest)
+        public ActionResult<IEnumerable<string>> GetByInterests(string interest)
         {
             var repo = new UsersRepository();
             var usersWithInterest = repo.GetUsersByInterests(interest);

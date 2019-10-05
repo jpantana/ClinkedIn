@@ -189,6 +189,11 @@ namespace ClinkedIn.Api.DataAccess
             return user;
         }
 
+        internal User GetByIdToAddFriendOrEnemy(Guid id)
+        {
+            var user = _users.FirstOrDefault(clinker => clinker.Id == id);
+            return user;
+        }
         public List<User> GetFriends(Guid id)
         {
             var user = _users.FirstOrDefault(thisUser => thisUser.Id == id);
@@ -227,9 +232,6 @@ namespace ClinkedIn.Api.DataAccess
             var user = _users.FirstOrDefault(clinker => clinker.Id == id);
             var sentenceStarted = user.SentenceStarted;
             var sentenceEnds = user.SentenceEnds;
-
-            //int DaysLeft = sentenceEnds.Day - sentenceStarted.Day;
-
             System.TimeSpan DaysLeft = sentenceEnds.Subtract(sentenceStarted);
             var SentenceRemaining = $"{user.FirstName} {user.LastName} has {DaysLeft.Days} days left in prison.";
             return SentenceRemaining;

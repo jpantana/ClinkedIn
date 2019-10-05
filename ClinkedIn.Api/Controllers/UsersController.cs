@@ -66,11 +66,39 @@ namespace ClinkedIn.Api.Controllers
             return Ok(myNewUser);
         }
 
+        [HttpPut("{id}/Friends/{friendId}")]
+        public ActionResult<List<User>> AddFriend(Guid id, Guid friendId)
+        {
+            var repo = new UsersRepository();
+            var user = repo.GetByIdToAddFriendOrEnemy(id);
+            var friendToAdd = repo.GetByIdToAddFriendOrEnemy(friendId);
+            var currentFriends = user.MyFriends;
+            var reciprocateFriend = friendToAdd.MyFriends;
+            currentFriends.Add(friendToAdd);
+            reciprocateFriend.Add(user);
+            return currentFriends;
+        }
+
+        [HttpPut("{id}/Enemies/{enemyId}")]
+        public ActionResult<List<User>> AddEnemy(Guid id, Guid enemyId)
+        {
+            var repo = new UsersRepository();
+            var user = repo.GetByIdToAddFriendOrEnemy(id);
+            var enemyToAdd = repo.GetByIdToAddFriendOrEnemy(enemyId);
+            var currentEnemies = user.MyEnemies;
+            var reciprocateEnemy = enemyToAdd.MyEnemies;
+            currentEnemies.Add(enemyToAdd);
+            reciprocateEnemy.Add(user);
+            return currentEnemies;
+
+        }
+
         [HttpGet("{id}/Sentence")]
         public ActionResult<string> GetSentenceLeft(Guid id)
         {
             var repo = new UsersRepository();
             return repo.DaysLeft(id);
+
         }
 
         [HttpGet("interests/{interest}")]

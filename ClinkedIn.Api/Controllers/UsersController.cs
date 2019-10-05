@@ -73,7 +73,9 @@ namespace ClinkedIn.Api.Controllers
             var user = repo.GetByIdToAddFriendOrEnemy(id);
             var friendToAdd = repo.GetByIdToAddFriendOrEnemy(friendId);
             var currentFriends = user.MyFriends;
+            var reciprocateFriend = friendToAdd.MyFriends;
             currentFriends.Add(friendToAdd);
+            reciprocateFriend.Add(user);
             return currentFriends;
         }
 
@@ -84,8 +86,18 @@ namespace ClinkedIn.Api.Controllers
             var user = repo.GetByIdToAddFriendOrEnemy(id);
             var enemyToAdd = repo.GetByIdToAddFriendOrEnemy(enemyId);
             var currentEnemies = user.MyEnemies;
+            var reciprocateEnemy = enemyToAdd.MyEnemies;
             currentEnemies.Add(enemyToAdd);
+            reciprocateEnemy.Add(user);
             return currentEnemies;
+        }
+
+        [HttpGet("interests/{interest}")]
+        public ActionResult<IEnumerable<string>> GetByInterests(string interest)
+        {
+            var repo = new UsersRepository();
+            var usersWithInterest = repo.GetUsersByInterests(interest);
+            return Ok(usersWithInterest);
         }
     }
 }

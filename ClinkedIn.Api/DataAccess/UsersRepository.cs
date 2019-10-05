@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace ClinkedIn.Api.DataAccess
 {
@@ -154,6 +155,7 @@ namespace ClinkedIn.Api.DataAccess
             };
 
 
+
             _users.Add(JoshPantana);
             _users.Add(HeathMoore);
             _users.Add(JeressiaWilliamson);
@@ -177,7 +179,7 @@ namespace ClinkedIn.Api.DataAccess
         public ActionResult<List<User>> CreateNewUser(User user)
         {
             _users.Add(user);
-            return _users; 
+            return _users;
         }
 
         internal ActionResult<User> GetById(Guid id)
@@ -203,6 +205,25 @@ namespace ClinkedIn.Api.DataAccess
             var user = _users.FirstOrDefault(clinker => clinker.Id == id);
             var enemiesList = user.MyEnemies;
             return enemiesList;
+        }
+
+        public IEnumerable<string> GetUsersByInterests(string interest)
+        {
+            Regex pattern = new Regex($@"\b{interest.ToLower()}\b");
+            var usersWithInterest = new List<User>();
+            foreach(User user in _users)
+            {
+                foreach(string userInterest in user.InterestList)
+                {
+                    if (pattern.IsMatch(userInterest.ToLower()))
+                    {
+                        usersWithInterest.Add(user);
+                        break;
+                    }
+                }
+            }
+            var usersNames = usersWithInterest.Select(x => $"{x.FirstName} {x.LastName}");
+            return usersNames;
         }
     }
 }

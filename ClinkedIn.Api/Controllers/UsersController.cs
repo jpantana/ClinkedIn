@@ -67,14 +67,25 @@ namespace ClinkedIn.Api.Controllers
         }
 
         [HttpPut("{id}/Friends/{friendId}")]
-        public ActionResult<List<User>> AddFriends(Guid id, Guid friendId)
+        public ActionResult<List<User>> AddFriend(Guid id, Guid friendId)
         {
             var repo = new UsersRepository();
-            var user = repo.GetByIdToAddFriend(id);
-            var friendToAdd = repo.GetByIdToAddFriend(friendId);
+            var user = repo.GetByIdToAddFriendOrEnemy(id);
+            var friendToAdd = repo.GetByIdToAddFriendOrEnemy(friendId);
             var currentFriends = user.MyFriends;
             currentFriends.Add(friendToAdd);
             return currentFriends;
+        }
+
+        [HttpPut("{id}/Enemies/{enemyId}")]
+        public ActionResult<List<User>> AddEnemy(Guid id, Guid enemyId)
+        {
+            var repo = new UsersRepository();
+            var user = repo.GetByIdToAddFriendOrEnemy(id);
+            var enemyToAdd = repo.GetByIdToAddFriendOrEnemy(enemyId);
+            var currentEnemies = user.MyEnemies;
+            currentEnemies.Add(enemyToAdd);
+            return currentEnemies;
         }
     }
 }

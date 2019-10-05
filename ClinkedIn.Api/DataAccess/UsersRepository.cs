@@ -186,7 +186,7 @@ namespace ClinkedIn.Api.DataAccess
             return user;
         }
 
-        internal User GetByIdToAddFriend(Guid id)
+        internal User GetByIdToAddFriendOrEnemy(Guid id)
         {
             var user = _users.FirstOrDefault(clinker => clinker.Id == id);
             return user;

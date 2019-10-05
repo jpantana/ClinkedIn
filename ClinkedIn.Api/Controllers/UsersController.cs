@@ -53,7 +53,7 @@ namespace ClinkedIn.Api.Controllers
                 Id = Guid.NewGuid(),
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                SentenceLength = user.SentenceLength,
+                SentenceEnds = user.SentenceEnds,
                 SentenceStarted = DateTime.Now,
                 Specialty = user.Specialty,
                 InterestList = user.InterestList,
@@ -64,6 +64,13 @@ namespace ClinkedIn.Api.Controllers
             var repo = new UsersRepository();
             var myNewUser = repo.CreateNewUser(newUser);
             return Ok(myNewUser);
+        }
+
+        [HttpGet("{id}/Sentence")]
+        public ActionResult<string> GetSentenceLeft(Guid id)
+        {
+            var repo = new UsersRepository();
+            return repo.DaysLeft(id);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace ClinkedIn.Api.Commands
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public int SentenceLength { get; set; }
+        public DateTime SentenceEnds { get; set; }
         public Specialty Specialty { get; set; }
         public List<string> InterestList { get; set; }
         

@@ -10,9 +10,9 @@ namespace ClinkedIn.Api.DataAccess
 {
     public class UsersRepository
     {
-        static List<User> _users = new List<User>();
+        public static List<User> _users = new List<User>();
 
-        public UsersRepository()
+        public void AddSeedData()
         {
             var JoshPantana = new User
             {
@@ -154,8 +154,6 @@ namespace ClinkedIn.Api.DataAccess
                 }
             };
 
-
-
             _users.Add(JoshPantana);
             _users.Add(HeathMoore);
             _users.Add(JeressiaWilliamson);
@@ -164,10 +162,7 @@ namespace ClinkedIn.Api.DataAccess
             _users.Add(JeffreyDahmer);
             _users.Add(TedBundy);
 
-
         }
-
-
 
 
 

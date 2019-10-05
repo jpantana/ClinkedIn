@@ -17,6 +17,11 @@ namespace ClinkedIn.Api.Controllers
         public ActionResult<IEnumerable<User>> GetAllUsers()
         {
             var repo = new UsersRepository();
+            List<User> userList = UsersRepository._users;
+            if (userList.Count == 0)
+            {
+                repo.AddSeedData();
+            }
             return repo.GetAll();
         }
 

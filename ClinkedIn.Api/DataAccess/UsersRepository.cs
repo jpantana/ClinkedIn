@@ -5,6 +5,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using ClinkedIn.Api.Commands;
 
 namespace ClinkedIn.Api.DataAccess
 {
@@ -176,6 +177,14 @@ namespace ClinkedIn.Api.DataAccess
         {
             _users.Add(user);
             return _users;
+        }
+
+        public ActionResult<User> UpdateUser(User user, Guid id)
+        {
+            var userToUpdate =_users.First(x => x.Id == id);
+            userToUpdate.FirstName = user.FirstName;
+            userToUpdate.LastName = user.LastName;
+            return userToUpdate;
         }
 
         internal ActionResult<User> GetById(Guid id)

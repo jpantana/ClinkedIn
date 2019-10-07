@@ -71,6 +71,21 @@ namespace ClinkedIn.Api.Controllers
             return Ok(myNewUser);
         }
 
+        [HttpPut("{id}")]
+        public ActionResult<User> UpdateUser(UserUpdateCommand user, Guid id)
+        {
+            var repo = new UsersRepository();
+
+            var userOutline = new User()
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName
+            };
+
+            var updatedUser = repo.UpdateUser(userOutline, id);
+            return updatedUser;
+        }
+
         [HttpPut("{id}/Friends/{friendId}")]
         public ActionResult<List<User>> AddFriend(Guid id, Guid friendId)
         {
